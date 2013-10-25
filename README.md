@@ -35,8 +35,8 @@ There are some helper extensions methods to make easier the use of the library. 
 - **WriteError**
 - **WriteCritical**
 
-And for each extension methods, there's some variations with default values to avoid the developer needs to pass **null** where some information is not available.
-One of these variations receives a **Func<string>** instead of a string for the message parameter, which is invoked if the log message is not filtered, to avoid unecessary overhead.
+And for each extension methods, there's overloads with default values to avoid the developer needs to pass **null** where some information is not available.
+One of these overloads receives a **Func<string>** instead of a string for the message parameter, which is invoked only if the log message is not filtered. This is useful to avoid the ovehead of string formatting / concatenating when the message is filtered.
 
 Async support
 -------------
