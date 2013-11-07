@@ -95,13 +95,17 @@ namespace Takenet.Library.Logging
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
         /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static void WriteCritical(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        public static void WriteCritical(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Critical, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Critical, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                } 
                 logger.WriteLog(logMessage);
             }
         }
@@ -162,13 +166,17 @@ namespace Takenet.Library.Logging
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
         /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static void WriteError(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        public static void WriteError(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Error, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Error, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 logger.WriteLog(logMessage);
             }
         }
@@ -230,13 +238,17 @@ namespace Takenet.Library.Logging
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
         /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static void WriteInformation(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        public static void WriteInformation(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Information, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Information, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 logger.WriteLog(logMessage);
             }
         }
@@ -298,13 +310,17 @@ namespace Takenet.Library.Logging
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
         /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static void WriteVerbose(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        public static void WriteVerbose(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Verbose, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Verbose, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                } 
                 logger.WriteLog(logMessage);
             }
         }
@@ -365,13 +381,17 @@ namespace Takenet.Library.Logging
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
         /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static void WriteWarning(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        public static void WriteWarning(this ILogger logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Warning, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Warning, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                } 
                 logger.WriteLog(logMessage);
             }
         }

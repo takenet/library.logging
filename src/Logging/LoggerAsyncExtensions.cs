@@ -50,59 +50,18 @@ namespace Takenet.Library.Logging
         /// <param name="applicationName">Name of the current application</param>
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteCriticalAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        /// <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        public static Task WriteCriticalAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Critical, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Critical, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
-                return logger.WriteLogAsync(logMessage);
-            }
-            else
-            {
-                var tcs = new TaskCompletionSource<object>();
-                tcs.SetResult(null);
-                return tcs.Task;
-            }
-        }
-
-        /// <summary>
-        /// Writes a Critical log message with current logger instance
-        /// </summary>
-        /// <param name="logger">Current logger instance</param>
-        /// <param name="title">Title to the log message</param>
-        /// <param name="message">The actual log message</param>
-        /// <param name="userName">Name of user who is interacting with the system</param>
-        /// <param name="applicationName">Name of current application</param>
-        /// <param name="categories">Categories where the current log message fits</param>
-        /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteCriticalAsync(this ILoggerAsync logger, string title, string message, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
-        {
-            return logger.WriteLogAsync(new LogMessage(title, message, userName, TraceEventType.Critical, applicationName, categories, correlationID, extendedProperties));
-        }
-
-
-        /// <summary>
-        /// Writes a Error log message with current logger instance
-        /// </summary>
-        /// <param name="logger">Current logger instance</param>
-        /// <param name="title">Title to the log message</param>
-        /// <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
-        /// <param name="userName">Name of user who is interacting with the system</param>
-        /// <param name="applicationName">Name of current application</param>
-        /// <param name="categories">Categories where the current log message fits</param>
-        /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteErrorAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
-        {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Error, applicationName, categories, correlationID, extendedProperties);
-
-            if (ShouldWriteLog(logger, logMessage))
-            {
-                logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 return logger.WriteLogAsync(logMessage);
             }
             else
@@ -118,36 +77,23 @@ namespace Takenet.Library.Logging
         /// </summary>
         /// <param name="logger">Current logger instance</param>
         /// <param name="title">Title to the log message</param>
-        /// <param name="message">The actual log message</param>
-        /// <param name="userName">Name of user who is interacting with the system</param>
-        /// <param name="applicationName">Name of current application</param>
-        /// <param name="categories">Categories where the current log message fits</param>
-        /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteErrorAsync(this ILoggerAsync logger, string title, string message, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
-        {
-            return logger.WriteLogAsync(new LogMessage(title, message, userName, TraceEventType.Error, applicationName, categories, correlationID, extendedProperties));
-        }
-
-
-        /// <summary>
-        /// Writes a Warning log message with current logger instance
-        /// </summary>
-        /// <param name="logger">Current logger instance</param>
-        /// <param name="title">Title to the log message</param>
         /// <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
         /// <param name="userName">Name of user who is interacting with the system</param>
         /// <param name="applicationName">Name of current application</param>
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteWarningAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        /// <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        public static Task WriteErrorAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Warning, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Error, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 return logger.WriteLogAsync(logMessage);
             }
             else
@@ -158,24 +104,9 @@ namespace Takenet.Library.Logging
             }
         }
 
-        /// <summary>
-        /// Writes a Warning log message with current logger instance
-        /// </summary>
-        /// <param name="logger">Current logger instance</param>
-        /// <param name="title">Title to the log message</param>
-        /// <param name="message">The actual log message</param>
-        /// <param name="userName">Name of user who is interacting with the system</param>
-        /// <param name="applicationName">Name of current application</param>
-        /// <param name="categories">Categories where the current log message fits</param>
-        /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteWarningAsync(this ILoggerAsync logger, string title, string message, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
-        {
-            return logger.WriteLogAsync(new LogMessage(title, message, userName, TraceEventType.Warning, applicationName, categories, correlationID, extendedProperties));
-        }
 
         /// <summary>
-        /// Writes a Information log message with current logger instance
+        /// Writes a Warning log message with current logger instance
         /// </summary>
         /// <param name="logger">Current logger instance</param>
         /// <param name="title">Title to the log message</param>
@@ -184,14 +115,18 @@ namespace Takenet.Library.Logging
         /// <param name="applicationName">Name of current application</param>
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteInformationAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        /// <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        public static Task WriteWarningAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Information, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Warning, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 return logger.WriteLogAsync(logMessage);
             }
             else
@@ -207,16 +142,33 @@ namespace Takenet.Library.Logging
         /// </summary>
         /// <param name="logger">Current logger instance</param>
         /// <param name="title">Title to the log message</param>
-        /// <param name="message">The actual log message</param>
+        /// <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
         /// <param name="userName">Name of user who is interacting with the system</param>
         /// <param name="applicationName">Name of current application</param>
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteInformationAsync(this ILoggerAsync logger, string title, string message, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        /// <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        public static Task WriteInformationAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            return logger.WriteLogAsync(new LogMessage(title, message, userName, TraceEventType.Information, applicationName, categories, correlationID, extendedProperties));
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Information, applicationName, categories, correlationID, null);
+
+            if (ShouldWriteLog(logger, logMessage))
+            {
+                logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
+                return logger.WriteLogAsync(logMessage);
+            }
+            else
+            {
+                var tcs = new TaskCompletionSource<object>();
+                tcs.SetResult(null);
+                return tcs.Task;
+            }
         }
+
 
         /// <summary>
         /// Writes a Verbose log message with current logger instance
@@ -228,14 +180,18 @@ namespace Takenet.Library.Logging
         /// <param name="applicationName">Name of current application</param>
         /// <param name="categories">Categories where the current log message fits</param>
         /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteVerboseAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
+        /// <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        public static Task WriteVerboseAsync(this ILoggerAsync logger, string title, Func<string> messageFunc, string applicationName, string[] categories, string userName = null, long correlationID = 0, Func<IDictionary<string, string>> extendedPropertiesFunc = null)
         {
-            var logMessage = new LogMessage(title, null, userName, TraceEventType.Verbose, applicationName, categories, correlationID, extendedProperties);
+            var logMessage = new LogMessage(title, null, userName, TraceEventType.Verbose, applicationName, categories, correlationID, null);
 
             if (ShouldWriteLog(logger, logMessage))
             {
                 logMessage.Message = messageFunc.Invoke();
+                if (extendedPropertiesFunc != null)
+                {
+                    logMessage.ExtendedProperties = extendedPropertiesFunc.Invoke();
+                }
                 return logger.WriteLogAsync(logMessage);
             }
             else
@@ -244,22 +200,6 @@ namespace Takenet.Library.Logging
                 tcs.SetResult(null);
                 return tcs.Task;
             }
-        }
-
-        /// <summary>
-        /// Writes a Verbose log message with current logger instance
-        /// </summary>
-        /// <param name="logger">Current logger instance</param>
-        /// <param name="title">Title to the log message</param>
-        /// <param name="message">The actual log message</param>
-        /// <param name="userName">Name of user who is interacting with the system</param>
-        /// <param name="applicationName">Name of current application</param>
-        /// <param name="categories">Categories where the current log message fits</param>
-        /// <param name="correlationID">Identifier to correlate this log to other log entries</param>
-        /// <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
-        public static Task WriteVerboseAsync(this ILoggerAsync logger, string title, string message, string applicationName, string[] categories, string userName = null, long correlationID = 0, IDictionary<string, string> extendedProperties = null)
-        {
-            return logger.WriteLogAsync(new LogMessage(title, message, userName, TraceEventType.Verbose, applicationName, categories, correlationID, extendedProperties));
         }
     }
 }
