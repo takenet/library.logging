@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Logging")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Provides a simple logging interface for applications and some basic implementations of this interface.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Takenet")]
-[assembly: AssemblyProduct("TakeLib")]
-[assembly: AssemblyCopyright("Copyright © Takenet 2012")]
+[assembly: AssemblyProduct("Takenet Library Loggin")]
+[assembly: AssemblyCopyright("Copyright © Takenet 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.2.1")]
-[assembly: AssemblyFileVersion("1.2.2.1")]
+[assembly: AssemblyVersion("1.2.2.2")]
+[assembly: AssemblyFileVersion("1.2.2.2")]

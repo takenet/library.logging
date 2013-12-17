@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/takenet/library.logging/</projectUrl>
+    <iconUrl>http://b.vimeocdn.com/ps/815/815605_300.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2013</copyright>
+    <tags>Logging Takenet Log</tags>
+  </metadata>
+</package>
