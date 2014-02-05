@@ -11,6 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright 2013</copyright>
-    <tags>Logging Takenet Log Owin</tags>
+    <tags>Logging Takenet Log</tags>
   </metadata>
 </package>

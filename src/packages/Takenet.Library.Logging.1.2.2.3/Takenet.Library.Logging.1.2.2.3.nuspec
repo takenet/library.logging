@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Takenet.Library.Logging</id>
+    <version>1.2.2.3</version>
+    <title>Logging</title>
+    <authors>Takenet</authors>
+    <owners>Takenet</owners>
+    <projectUrl>https://github.com/takenet/library.logging/</projectUrl>
+    <iconUrl>http://b.vimeocdn.com/ps/815/815605_300.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides a simple logging interface for applications and some basic implementations of this interface.</description>
+    <copyright>Copyright 2013</copyright>
+    <tags>Logging Takenet Log</tags>
+  </metadata>
+</package>

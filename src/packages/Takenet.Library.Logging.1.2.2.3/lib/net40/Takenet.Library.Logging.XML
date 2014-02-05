@@ -1,0 +1,998 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Takenet.Library.Logging</name>
+    </assembly>
+    <members>
+        <member name="T:Takenet.Library.Logging.Filters.ApiLogFilter">
+            <summary>
+            Obtains the filter conditions from the log Web API.
+            Because the lag of HTTP calls, is recommended that the instances 
+            of this class is wrapped by a CachedLogFilter instance.
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.ILogFilter">
+            <summary>
+            Defines a log filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.ILogFilter.ShouldWriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Checks if a specific entry should be logged.
+            </summary>
+            <param name="severity">Level of severity of log message</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="machineName">Name of the machine where the process is running</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ApiLogFilter.#ctor(System.String)">
+            <summary>
+            Creates a new instance pointing
+            to the specified log api address.
+            </summary>
+            <param name="baseAddress"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ApiLogFilter.ShouldWriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Checks if a specific entry should be logged.
+            </summary>
+            <param name="logMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.CachedLogFilter">
+            <summary>
+            Provides a basic cache structure for
+            log filtering
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.CachedLogFilter.#ctor(Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Creates a new instance with 
+            default cache options 
+            and a verbose log filter as alternative
+            </summary>
+            <param name="logFilter">Log filter to be wrapper</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.CachedLogFilter.#ctor(Takenet.Library.Logging.ILogFilter,System.TimeSpan)">
+            <summary>
+            Creates a new instance with 
+            specified cache options
+            and a verbose log filter as alternative
+            </summary>
+            <param name="logFilter">Log filter to be wrapper</param>
+            <param name="cacheValidity">Validity of the wrapper log filter values on cache</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.CachedLogFilter.#ctor(Takenet.Library.Logging.ILogFilter,System.TimeSpan,Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Creates a new instance with 
+            specified cache options
+            and the specified log filter as alternative
+            </summary>
+            <param name="logFilter"></param>
+            <param name="cacheValidity">Validity of the wrapper log filter values on cache</param>
+            <param name="alternativeLogFilter">Filter to be used while the main log filter values are not available</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.CachedLogFilter.ShouldWriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Checks if a specific entry should be logged.
+            </summary>
+            <param name="logMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.SeverityLogFilter">
+            <summary>
+            Filter the log messages using
+            the severity property of log messages
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.SeverityLogFilter.#ctor">
+            <summary>
+            Start a new log filter that filters by Warning severity
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.SeverityLogFilter.#ctor(System.Diagnostics.TraceEventType)">
+            <summary>
+            Start a new log filter by specified severity
+            </summary>
+            <param name="logSeverity"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.SeverityLogFilter.ShouldWriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Indicates if the specified message should be logged
+            </summary>
+            <param name="logMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.SeverityLogFilter.LogSeverity">
+            <summary>
+            Max severity which log messages are filtered
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.LogFilterQuery">
+            <summary>
+            Represents a query to the log filter service
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.LogFilterQuery.GetHashCode">
+            <summary>
+            Defines a new hash code to cache dictionary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.LogFilterQuery.Equals(System.Object)">
+            <summary>
+            Defina a comparison method to cache dictionary
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.LogFilterQuery.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQuery.Title">
+            <summary>
+            Log message title
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQuery.Severity">
+            <summary>
+            Log message severity
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQuery.ApplicationName">
+            <summary>
+            Name of application which called the logger
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQuery.MachineName">
+            <summary>
+            Log message machine name
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQuery.Categories">
+            <summary>
+            Categories of log message
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.LogFilterQueryResult">
+            <summary>
+            The result of log query service
+            for storing on local cache
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQueryResult.Result">
+            <summary>
+            Indicates the message to be logged or not
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.LogFilterQueryResult.ResultDate">
+            <summary>
+            Date of result 
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.ServiceCacheEventArgs">
+            <summary>
+            Represents an error data with service filter cache
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceCacheEventArgs.#ctor(System.Exception)">
+            <summary>
+            Instantiate a new args
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.ServiceCacheEventArgs.ServiceException">
+            <summary>
+            The exception that is not handled
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Filters.ServiceLogFilter">
+            <summary>
+            Provides a log filter that obtains
+            the filter conditions on a service in current network.
+            The service is discovered using WS-Discovery protocol.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceLogFilter.#cctor">
+            <summary>
+            Starts static elements of filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceLogFilter.#ctor">
+            <summary>
+            Creates a new log filter instance with a
+            default alternative log filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceLogFilter.#ctor(Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Creates a new log filter instance using a
+            specific alternative log filter
+            </summary>
+            <param name="alternativeLogFilter">Alternative filter for the cases when the log filter service is not available</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceLogFilter.ShouldWriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Checks if a specific entry should be logged.
+            </summary>
+            <param name="severity">Level of severity of log message</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="machineName">Name of the machine where the process is running</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <returns>A boolean value indicatin if the message should be logged or not</returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.Filters.ServiceLogFilter.TryCreateChannelFactory">
+            <summary>
+            Try to discover an endpoint to the
+            log filter requests
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Filters.ServiceLogFilter.AlternativeLogFilter">
+            <summary>
+            Indicates a alternative log filter to be used
+            in cases when the service log filter fails
+            to determine if a message should be logged
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.ILogger">
+            <summary>
+            Defines a simple and common log interface.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.ILogger.WriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Writes a logs a message
+            </summary>
+            <param name="logMessage">The message to be logged</param>
+        </member>
+        <member name="P:Takenet.Library.Logging.ILogger.Filter">
+            <summary>
+            Provides a filter for log messages
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.ILoggerAsync">
+            <summary>
+            Defines a simple and common log interface.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.ILoggerAsync.WriteLogAsync(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Writes a logs a message
+            </summary>
+            <param name="logMessage">The message to be logged</param>
+        </member>
+        <member name="P:Takenet.Library.Logging.ILoggerAsync.Filter">
+            <summary>
+            Provides a filter for log messages
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.LoggerAsyncExtensions">
+            <summary>
+            Utility extensions for ILoggerAsync interface
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.ShouldWriteLog(Takenet.Library.Logging.ILoggerAsync,System.String,System.Diagnostics.TraceEventType,System.String,System.String[])">
+            <summary>
+            Allows to check if there's a log filter
+            for a specific log message properties
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="severity">Level of severity of log message</param>
+            <param name="applicationName">Name of the current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.ShouldWriteLog(Takenet.Library.Logging.ILoggerAsync,Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Allows to check if there's a log filter
+            for a specific log message properties
+            </summary>
+            <param name="logMessage">Message to be logged</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.WriteCriticalAsync(Takenet.Library.Logging.ILoggerAsync,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Critical log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of the current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.WriteErrorAsync(Takenet.Library.Logging.ILoggerAsync,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Error log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.WriteWarningAsync(Takenet.Library.Logging.ILoggerAsync,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Warning log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.WriteInformationAsync(Takenet.Library.Logging.ILoggerAsync,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Information log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerAsyncExtensions.WriteVerboseAsync(Takenet.Library.Logging.ILoggerAsync,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Verbose log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedPropertiesFunc">A function to get pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="T:Takenet.Library.Logging.LoggerExtensions">
+            <summary>
+            Utility extensions for ILogger interface
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.ShouldWriteLog(Takenet.Library.Logging.ILogger,System.String,System.Diagnostics.TraceEventType,System.String,System.String[])">
+            <summary>
+            Allows to check if there's a log filter
+            for a specific log message properties
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="severity">Level of severity of log message</param>
+            <param name="applicationName">Name of the current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.ShouldWriteLog(Takenet.Library.Logging.ILogger,Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Allows to check if there's a log filter
+            for a specific log message properties
+            </summary>
+            <param name="logMessage">Message to be logged</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteCritical(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a Critical log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteCritical(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Writes a Critical log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteCritical(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a Critical log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Critical to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteCritical(Takenet.Library.Logging.ILogger,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Critical log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteError(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a Error log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteError(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Writes a Error log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteError(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a Error log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Error to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteError(Takenet.Library.Logging.ILogger,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Error log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteInformation(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a Information log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteInformation(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Writes a Information log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteInformation(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a Information log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteInformation(Takenet.Library.Logging.ILogger,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Information log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteVerbose(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a Verbose log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteVerbose(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Writes a Verbose log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteVerbose(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a Verbose log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteVerbose(Takenet.Library.Logging.ILogger,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Verbose log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteWarning(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a Warning log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteWarning(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Writes a Warning log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteWarning(Takenet.Library.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a Warning log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="category">Category where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Warning to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LoggerExtensions.WriteWarning(Takenet.Library.Logging.ILogger,System.String,System.Func{System.String},System.String,System.String[],System.String,System.Int64,System.Func{System.Collections.Generic.IDictionary{System.String,System.String}})">
+            <summary>
+            Writes a Warning log message with current logger instance
+            </summary>
+            <param name="logger">Current logger instance</param>
+            <param name="title">Title to the log message</param>
+            <param name="messageFunc">A function which returns the message to be logged. It will be invoked only in case that the message is not filtered.</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant Verbose to the log message</param>
+        </member>
+        <member name="T:Takenet.Library.Logging.AggregateLogger">
+            <summary>
+            Allow logging on multiple loggers
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.AggregateLogger.#ctor(Takenet.Library.Logging.ILogger[])">
+            <summary>
+            Initialize logger with specified loggers without filter
+            </summary>
+            <param name="loggers"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.AggregateLogger.#ctor(Takenet.Library.Logging.ILogFilter,Takenet.Library.Logging.ILogger[])">
+            <summary>
+            Initialize logger with specified loggers and filter
+            </summary>
+            <param name="loggers"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.AggregateLogger.WriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Write log message on configured loggers
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="P:Takenet.Library.Logging.AggregateLogger.Loggers">
+            <summary>
+            Loggers to write log messages
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.AggregateLogger.Filter">
+            <summary>
+            Specific a master filter for log messages
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.DebugLogger">
+            <summary>
+            Write log messages on debug trace listener
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.DebugLogger.#ctor">
+            <summary>
+            Instantiate a new DebugLogger class
+            without specifying a log filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.DebugLogger.#ctor(Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Instantiate a new QueueLogger class
+            using specified log filter
+            </summary>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.DebugLogger.WriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Logs a message
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="P:Takenet.Library.Logging.DebugLogger.Filter">
+            <summary>
+            Current filter of logger
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Loggers.CorrelatedLogger">
+            <summary>
+            Caches filtered log messages and write then
+            if a correlated message is not filtered
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Loggers.EventViewerLogger">
+            <summary>
+            Logs on the machine EventViewer
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Loggers.LoggerAsync">
+            <summary>
+            Implements a simple log wrapper 
+            for async logging. This class should
+            be used only for loggers that don't have
+            an explict async implementation.
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Loggers.TextFileLogger">
+            <summary>
+            Write log on text files
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Loggers.TextFileLogger.#ctor">
+            <summary>
+            Instantiate a new logger with default parameters
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Loggers.TextFileLogger.#ctor(Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Instantiate a new logger using
+            specified filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Loggers.TextFileLogger.#ctor(Takenet.Library.Logging.ILogFilter,System.String)">
+            <summary>
+            Instantiate a new logger using
+            specified filter and file name
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Loggers.TextFileLogger.WriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Logs a message
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="P:Takenet.Library.Logging.Loggers.TextFileLogger.Filter">
+            <summary>
+            Current filter of logger
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.LogMessage">
+            <summary>
+            Represents a application log message
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.LogMessage.#ctor">
+            <summary>
+            Create a instance with default values
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.LogMessage.#ctor(System.String,System.String,System.String,System.Diagnostics.TraceEventType,System.String,System.String[],System.Int64,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Create a instance with specified values
+            </summary>
+            <param name="title">Title to the log message</param>
+            <param name="message">The actual log message</param>
+            <param name="userName">Name of user who is interacting with the system</param>
+            <param name="severity">Level of severity of log message</param>
+            <param name="applicationName">Name of current application</param>
+            <param name="categories">Categories where the current log message fits</param>
+            <param name="correlationID">Identifier to correlate this log to other log entries</param>
+            <param name="extendedProperties">Pairs of name-value containing relevant information to the log message</param>
+        </member>
+        <member name="M:Takenet.Library.Logging.LogMessage.ToString">
+            <summary>
+            Get a string from the log message instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.LogMessageId">
+            <summary>
+            Unique identifier of the log message
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.LogMessageSafeId">
+            <summary>
+            Database-safe log message identifier
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.Timestamp">
+            <summary>
+            Date and time of the log event, UTC time
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.Title">
+            <summary>
+            Title to the log message
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.Message">
+            <summary>
+            The actual log message
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.UserName">
+            <summary>
+            Name of user who is interacting with the system
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.Severity">
+            <summary>
+            Level of severity of log message
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ApplicationName">
+            <summary>
+            Name of current application
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ProcessName">
+            <summary>
+            Name of executing process
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.MachineName">
+            <summary>
+            Name of the machine where the process is running
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ProcessId">
+            <summary>
+            Identifier of process on OS
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ThreadId">
+            <summary>
+            Identifier of current thread
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.Categories">
+            <summary>
+            Categories where the current log message fits
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.CorrelationId">
+            <summary>
+            Identifier to correlate this log to other log entries
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ExtendedProperties">
+            <summary>
+            Pairs of name-value containing relevant information to the log message
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.LogMessage.ShouldWriteLog">
+            <summary>
+            Allow to the log filters set a flag
+            to avoid double filtering check
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.QueueLogger">
+            <summary>
+            Utility class to make the access to log queues.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.#ctor">
+            <summary>
+            Instantiate a new QueueLogger class
+            without specifying a log filter
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.#ctor(Takenet.Library.Logging.ILogFilter)">
+            <summary>
+            Instantiate a new QueueLogger class
+            using specified log filter
+            </summary>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.EnqueueLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Send a log message to the queue
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.EnqueueLog(Takenet.Library.Logging.LogMessage,System.String)">
+            <summary>
+            Send a log message to the queue
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.DequeueLog(System.String)">
+            <summary>
+            Pop a message for log queue, if exists one.
+            The process will be locked until a message is taken from the queue.
+            </summary>
+            <param name="applicationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.DequeueLog(System.String,System.String)">
+            <summary>
+            Pop a message for log queue, if exists one.
+            The process will be locked until a message is taken from the queue.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.GetQueuePath(System.String)">
+            <summary>
+            Get a queue path for specific application, 
+            according to the queue name template.
+            </summary>
+            <param name="applicationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.CreateQueue(System.String)">
+            <summary>
+            Creates a queue in the specified path with
+            the correct user permissions
+            </summary>
+            <param name="queuePath"></param>
+        </member>
+        <member name="M:Takenet.Library.Logging.QueueLogger.WriteLog(Takenet.Library.Logging.LogMessage)">
+            <summary>
+            Logs a message
+            </summary>
+            <param name="logMessage"></param>
+        </member>
+        <member name="P:Takenet.Library.Logging.QueueLogger.Filter">
+            <summary>
+            Current filter of logger
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Models.ApplicationConfiguration">
+            <summary>
+            Settings for application logging, such filters
+            and repository configuration
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Logging.Models.ApplicationConfiguration.#ctor">
+            <summary>
+            Creates a new instance with default settings
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.ApplicationConfiguration.ApplicationConfigurationId">
+            <summary>
+            Unique identifier for application configuration
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.ApplicationConfiguration.ApplicationName">
+            <summary>
+            Name of application for logging
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.ApplicationConfiguration.LogRepositoryName">
+            <summary>
+            Name of log repository for current application.
+            Can be a table, file or collection name, for instance.
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.ApplicationConfiguration.SeverityLevel">
+            <summary>
+            Maximum severity level for logging
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.ApplicationConfiguration.SeverityFilterCollection">
+            <summary>
+            Collection of severity filters with conditions to filter the application log
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Logging.Models.SeverityFilter">
+            <summary>
+            Represents a combination of conditions to be 
+            filtered by a severity
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.SeverityFilter.CategoryName">
+            <summary>
+            Related Category
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.SeverityFilter.MachineName">
+            <summary>
+            Related Machine
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.SeverityFilter.MessageTitle">
+            <summary>
+            Related MessageTitle
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.SeverityFilter.ApplicationConfiguration">
+            <summary>
+            Related ApplicationConfiguration
+            </summary>
+        </member>
+        <member name="P:Takenet.Library.Logging.Models.SeverityFilter.ApplicationConfigurationId">
+            <summary>
+            Related ApplicationConfiguration identifier
+            </summary>
+        </member>
+    </members>
+</doc>
