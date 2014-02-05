@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Takenet.Library.Logging.Owin;
 
-namespace Logging.Owin
+namespace Owin
 {
     public static class LoggingMiddlewareExtensions
     {

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Takenet.Library.Logging;
 
-namespace Logging.Owin
+namespace Takenet.Library.Logging.Owin
 {
     public class LoggingMiddlewareOptions
     {
         public LoggingMiddlewareOptions(ILogger logger, ILogFilter logFilter)
         {
             Logger = logger;
-            LogFilter = LogFilter;
+            LogFilter = logFilter;
         }
 
         public ILogFilter LogFilter { get; set; }
