@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace Takenet.Library.Logging
 {
@@ -11,6 +12,7 @@ namespace Takenet.Library.Logging
     /// Represents a application log message
     /// </summary>
     [Serializable]
+    [DataContract]
     public class LogMessage
     {
         #region Constructor
@@ -72,38 +74,46 @@ namespace Takenet.Library.Logging
         /// <summary>
         /// Unique identifier of the log message
         /// </summary>
+        [DataMember]
         public Guid LogMessageId { get; set; }
 
         /// <summary>
         /// Database-safe log message identifier
         /// </summary>
+        [IgnoreDataMember]
         public long LogMessageSafeId { get; set; }
 
         /// <summary>
         /// Date and time of the log event, UTC time
         /// </summary>
+        [DataMember]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// Title to the log message
         /// </summary>
+        [DataMember]
         public string Title { get; set; }
 
         /// <summary>
         /// The actual log message
         /// </summary>
+        [DataMember]
         public string Message { get; set; }
 
         /// <summary>
         /// Name of user who is interacting with the system
         /// </summary>
+        [DataMember]
         public string UserName { get; set; }
 
         /// <summary>
         /// Level of severity of log message
         /// </summary>
+        [DataMember(EmitDefaultValue = true)]
         public TraceEventType Severity { get; set; }
 
+        [IgnoreDataMember]
         public int SeverityFlat
         {
             get { return (int)Severity; }
@@ -113,47 +123,56 @@ namespace Takenet.Library.Logging
         /// <summary>
         /// Name of current application
         /// </summary>
+        [DataMember]
         public string ApplicationName { get; set; }
 
         /// <summary>
         /// Name of executing process
         /// </summary>
+        [DataMember]
         public string ProcessName { get; set; }
 
         /// <summary>
         /// Name of the machine where the process is running
         /// </summary>
+        [DataMember]
         public string MachineName { get; set; }
 
         /// <summary>
         /// Identifier of process on OS
         /// </summary>
+        [DataMember]
         public int ProcessId { get; set; }
 
         /// <summary>
         /// Identifier of current thread
         /// </summary>
+        [DataMember]
         public int ThreadId { get; set; }
 
         /// <summary>
         /// Categories where the current log message fits
         /// </summary>
+        [DataMember]
         public string[] Categories { get; set; }
 
+        [NonSerialized]
         private string _categoriesFlat;
+
+        [IgnoreDataMember]
         public string CategoriesFlat
         {
-            get 
+            get
             {
                 if (_categoriesFlat == null)
                 {
-                    _categoriesFlat = Categories != null && Categories.Length > 0 ? Categories.Aggregate((a, b) => a + ";" + b) : null; 
+                    _categoriesFlat = Categories != null && Categories.Length > 0 ? Categories.Aggregate((a, b) => a + ";" + b) : null;
                 }
 
-                return _categoriesFlat; 
+                return _categoriesFlat;
             }
-            set 
-            { 
+            set
+            {
                 Categories = value != null ? value.Split(';') : null;
                 _categoriesFlat = value;
             }
@@ -162,14 +181,20 @@ namespace Takenet.Library.Logging
         /// <summary>
         /// Identifier to correlate this log to other log entries
         /// </summary>
+        [DataMember]
         public long CorrelationId { get; set; }
 
         /// <summary>
         /// Pairs of name-value containing relevant information to the log message
         /// </summary>
+        [DataMember]
         public IDictionary<string, string> ExtendedProperties { get; set; }
 
+
+        [NonSerialized]
         private string _extendedPropertiesFlat;
+
+        [IgnoreDataMember]
         public string ExtendedPropertiesFlat
         {
             get
@@ -208,7 +233,7 @@ namespace Takenet.Library.Logging
                         {
                             continue;
                         }
-                        dic.Add(prop.First(),prop.Last());
+                        dic.Add(prop.First(), prop.Last());
                     }
                     ExtendedProperties = dic;
                 }
@@ -230,6 +255,7 @@ namespace Takenet.Library.Logging
         /// Allow to the log filters set a flag
         /// to avoid double filtering check
         /// </summary>
+        [IgnoreDataMember]
         internal bool? ShouldWriteLog
         {
             get { return _shouldWriteLog; }
@@ -239,7 +265,7 @@ namespace Takenet.Library.Logging
         /// <summary>
         /// Get a string from the log message instance
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>       
         public override string ToString()
         {
             return string.Format("Timestamp: {0} - Severity: {1} - Title: {2} - Message: {3}", Timestamp, Severity, Title, Message);

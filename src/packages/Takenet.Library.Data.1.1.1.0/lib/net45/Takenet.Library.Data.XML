@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Takenet.Library.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Takenet.Library.Data.IEntityRepository`2">
+            <summary>
+            Base interface for entities repositories
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TId">Type of entity id (key) member</typeparam>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepository`2.Add(`0,System.Boolean)">
+            <summary>
+            Adds a <typeparamref name="TEntity"/> to the repository
+            </summary>
+            <param name="entity">Entity instance to add on repository</param>
+            <param name="isNew">Indicates if the entity is new or a existing value</param>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepository`2.Remove(`0)">
+            <summary>
+            Removes a existing <typeparamref name="TEntity"/> from the repository
+            </summary>
+            <param name="entity">Entity instance to remove from repository</param>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepository`2.GetAll">
+            <summary>
+            Gets a collection of <typeparamref name="TEntity"/> with all entities on the repository
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepository`2.GetById(`1)">
+            <summary>
+            Get a instance of <typeparamref name="TEntity"/> by entity key
+            </summary>
+            <param name="id">Entity key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepository`2.AsQueryable">
+            <summary>
+            Gets a generic IQueryable member
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Takenet.Library.Data.IEntityRepositoryAsync`2">
+            <summary>
+            Base interface for entities repositories
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TId">Type of entity id (key) member</typeparam>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepositoryAsync`2.AddAsync(`0,System.Boolean)">
+            <summary>
+            Adds a <typeparamref name="TEntity"/> to the repository
+            </summary>
+            <param name="entity">Entity instance to add on repository</param>
+            <param name="isNew">Indicates if the entity is new or a existing value</param>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepositoryAsync`2.RemoveAsync(`0)">
+            <summary>
+            Removes a existing <typeparamref name="TEntity"/> from the repository
+            </summary>
+            <param name="entity">Entity instance to remove from repository</param>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepositoryAsync`2.GetAllAsync">
+            <summary>
+            Gets a collection of <typeparamref name="TEntity"/> with all entities on the repository
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepositoryAsync`2.GetByIdAsync(`1)">
+            <summary>
+            Get a instance of <typeparamref name="TEntity"/> by entity key
+            </summary>
+            <param name="id">Entity key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.IEntityRepositoryAsync`2.AsQueryable">
+            <summary>
+            Gets a generic IQueryable member.
+            AsQueryable is not async because it not
+            represents an IO operation, since the query
+            is built in memory. The submission of an IQueryable 
+            object (i.e. calling ToList() method) should be async.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Takenet.Library.Data.INotifyUnitOfWork">
+            <summary>
+            Able to notify changes on unit of work
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Data.IUnitOfWork">
+            <summary>
+            Defines a common interface for data context objects
+            which works with Unit of Work Pattern
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.IUnitOfWork.Save">
+            <summary>
+            Save the context data
+            </summary>
+        </member>
+        <member name="E:Takenet.Library.Data.INotifyUnitOfWork.OnSavingChanges">
+            <summary>
+            Occours when the data is about to be saved
+            </summary>
+        </member>
+        <member name="E:Takenet.Library.Data.INotifyUnitOfWork.OnSavedChanges">
+            <summary>
+            Occours when the data was successfully saved
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Data.IUnitOfWorkAsync">
+            <summary>
+            Defines a common interface for data context objects
+            which works with Unit of Work Pattern
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.IUnitOfWorkAsync.SaveAsync">
+            <summary>
+            Save the context data
+            </summary>
+        </member>
+    </members>
+</doc>

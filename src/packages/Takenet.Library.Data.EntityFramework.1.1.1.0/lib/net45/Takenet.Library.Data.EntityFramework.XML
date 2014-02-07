@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Takenet.Library.Data.EntityFramework</name>
+    </assembly>
+    <members>
+        <member name="T:Takenet.Library.Data.EntityFramework.EntityRepository`2">
+            <summary>
+            Base class that implements IEntityRepository for
+            EntityFramework
+            </summary>
+            <typeparam name="TEntity">Type of entity repository</typeparam>
+            <typeparam name="TId">Type of entity unique ID</typeparam>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Instantiate a new repository
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.Add(`0,System.Boolean)">
+            <summary>
+            Adds a <typeparamref name="TEntity"/> to the repository
+            </summary>
+            <param name="entity">Entity instance to add on repository</param>
+            <param name="isNew">Indicates if the entity is new or a existing value</param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.Remove(`0)">
+            <summary>
+            Removes a existing <typeparamref name="TEntity"/> from the repository
+            </summary>
+            <param name="entity">Entity instance to remove from repository</param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.GetAll">
+            <summary>
+            Gets a collection of <typeparamref name="TEntity"/> with all entities on the repository
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.GetById(`1)">
+            <summary>
+            Get a instance of <typeparamref name="TEntity"/> by entity key
+            </summary>
+            <param name="id">Entity key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepository`2.AsQueryable">
+            <summary>
+            Gets a generic <typeparamref name="TEntity"/> IQueryable member
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Takenet.Library.Data.EntityFramework.EntityRepositoryAsync`2">
+            <summary>
+            Base class that implements IEntityRepositoryAsync for
+            EntityFramework
+            </summary>
+            <typeparam name="TEntity">Type of entity repository</typeparam>
+            <typeparam name="TId">Type of entity unique ID</typeparam>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.EntityRepositoryAsync`2.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Instantiate a new repository
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync">
+            <summary>
+            Implements IUnitOfWork interface for Entity Framework DbContext class
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.#ctor">
+            <summary>
+            Constructs a new context instance using conventions to create the name of
+            the database to which a connection will be made. The by-convention name is
+            the full name (namespace + class name) of the derived context class.  See
+            the class remarks for how this is used to create a connection.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.#ctor(System.String)">
+            <summary>
+            Constructs a new context instance using the given string as the name or connection
+            string for the database to which a connection will be made.  See the class
+            remarks for how this is used to create a connection.
+            </summary>
+            <param name="nameOrConnectionString"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.#ctor(System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+            Constructs a new context instance using conventions to create the name of
+            the database to which a connection will be made, and initializes it from
+            the given model.  The by-convention name is the full name (namespace + class
+            name) of the derived context class.  See the class remarks for how this is
+            used to create a connection.
+            </summary>
+            <param name="dbCompiledModel"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.#ctor(System.String,System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+            Constructs a new context instance using the given string as the name or connection
+            string for the database to which a connection will be made, and initializes
+            it from the given model.  See the class remarks for how this is used to create
+            a connection.
+            </summary>
+            <param name="nameOrConnectionString"></param>
+            <param name="dbCompiledModel"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.#ctor(System.Data.Entity.Core.Objects.ObjectContext,System.Boolean)">
+            <summary>
+            Constructs a new context instance around an existing ObjectContext.  An existing
+            ObjectContext to wrap with the new context.  If set to true the ObjectContext
+            is disposed when the DbContext is disposed, otherwise the caller must dispose
+            the connection.
+            </summary>
+            <param name="objectContext"></param>
+            <param name="dbContextOwnsObjectContext"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContextAsync.SaveAsync">
+            <summary>
+            Saves the Unit of Work context state
+            </summary>
+        </member>
+        <member name="T:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext">
+            <summary>
+            Implements IUnitOfWork interface for Entity Framework DbContext class
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.#ctor">
+            <summary>
+            Constructs a new context instance using conventions to create the name of
+            the database to which a connection will be made. The by-convention name is
+            the full name (namespace + class name) of the derived context class.  See
+            the class remarks for how this is used to create a connection.
+            </summary>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.#ctor(System.String)">
+            <summary>
+            Constructs a new context instance using the given string as the name or connection
+            string for the database to which a connection will be made.  See the class
+            remarks for how this is used to create a connection.
+            </summary>
+            <param name="nameOrConnectionString"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.#ctor(System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+            Constructs a new context instance using conventions to create the name of
+            the database to which a connection will be made, and initializes it from
+            the given model.  The by-convention name is the full name (namespace + class
+            name) of the derived context class.  See the class remarks for how this is
+            used to create a connection.
+            </summary>
+            <param name="dbCompiledModel"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.#ctor(System.String,System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+            Constructs a new context instance using the given string as the name or connection
+            string for the database to which a connection will be made, and initializes
+            it from the given model.  See the class remarks for how this is used to create
+            a connection.
+            </summary>
+            <param name="nameOrConnectionString"></param>
+            <param name="dbCompiledModel"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.#ctor(System.Data.Entity.Core.Objects.ObjectContext,System.Boolean)">
+            <summary>
+            Constructs a new context instance around an existing ObjectContext.  An existing
+            ObjectContext to wrap with the new context.  If set to true the ObjectContext
+            is disposed when the DbContext is disposed, otherwise the caller must dispose
+            the connection.
+            </summary>
+            <param name="objectContext"></param>
+            <param name="dbContextOwnsObjectContext"></param>
+        </member>
+        <member name="M:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.Save">
+            <summary>
+            Saves the Unit of Work context state
+            </summary>
+        </member>
+        <member name="E:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.OnSavingChanges">
+            <summary>
+            Occours when the data is about to be saved
+            </summary>
+        </member>
+        <member name="E:Takenet.Library.Data.EntityFramework.UnitOfWorkDbContext.OnSavedChanges">
+            <summary>
+            Occours when the data was successfully saved
+            </summary>
+        </member>
+    </members>
+</doc>
