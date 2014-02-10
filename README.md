@@ -6,19 +6,27 @@ Provides a simple logging interface for applications and some basic implementati
 Loggers
 -------
 
-These are all basic loggers that implements the **ILogger** interface:
+A logger is a class that implements the **ILogger** interface.
+
+Built-in loggers:
 
 - **DebugLogger**: Writes to the output window of Visual Studio
 - **EventViewerLogger**: Writes to the Windows Event Viewer
 - **QueueLogger**: Writes to a MSMQ queue
 - **TextFileLogger**: Writes to a file in the file system
 - **AggregateLogger**: Allow logging in multiple loggers
- 
+
+Custom loggers (each one in a specific assembly):
+
+- **EntityFrameworkLogger**: Writes to a SQL database using the EntityFramework library
+- **MongoLogger**: Writes to a MongoDB collection using the official MongoDB driver
+- **HttpLogger**: Writes to a HTTP service, via HTTP POST/PUT and JSON
+
 
 Filters
 -------
 
-Provides filter capabilities to the loggers.
+Provides message filtering capabilities to the loggers.
 
 - **ApiLogFilter**: Queries a HTTP API if the message should be logged
 - **SeverityLogFilter**: Filters the messages according to the severity
