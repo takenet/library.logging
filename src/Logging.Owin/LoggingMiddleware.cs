@@ -90,7 +90,7 @@ namespace Takenet.Library.Logging.Owin
             finally
             {
                 stopwatch.Stop();
-                logMessage.Message = string.Format("Uri: {0} Method: {1} Elapsed: {2}", context.Request.Uri.ToString(), context.Request.Method, stopwatch.ElapsedMilliseconds);
+                logMessage.Message = string.Format("Uri: {0} Method: {1} Elapsed: {2} HttpStatusCode: {3}", context.Request.Uri.ToString(), context.Request.Method, stopwatch.ElapsedMilliseconds, context.Response.StatusCode);
                 logMessage.Title = "EndRequest";
                 logMessage.Timestamp = DateTime.UtcNow;
                 LogMessage(context, logMessage);
