@@ -81,10 +81,7 @@ namespace Takenet.Library.Logging.Owin
             }
             catch (Exception ex)
             {
-                logMessage.Message = string.Format("Uri: {0} Method: {1} Message: {2}", context.Request.Uri.ToString(), context.Request.Method, ex.Message);
-                logMessage.Title = "ErrorRequest";
-                logMessage.Timestamp = DateTime.UtcNow;
-                LogMessage(context, logMessage);
+                LogException(context, ex, logMessage);
                 throw;
             }
             finally
@@ -104,6 +101,19 @@ namespace Takenet.Library.Logging.Owin
             logMessage.ApplicationName = context.Environment["host.AppName"].ToString();
             logMessage.ExtendedProperties = extendedProperties;
             logMessage.CorrelationId = context.Get<long>(CORRELATION_HEADER_KEY);
+        }
+
+        private void LogException(IOwinContext context, Exception ex, LogMessage message)
+        {
+            if(ex.InnerException != null)
+            {
+                LogException(context, ex.InnerException, message);
+            }
+
+            message.Message = string.Format("Uri: {0} Method: {1} Message: {2}", context.Request.Uri.ToString(), context.Request.Method, ex.Message);
+            message.Title = "ErrorRequest";
+            message.Timestamp = DateTime.UtcNow;
+            LogMessage(context, message);
         }
     }
 }
