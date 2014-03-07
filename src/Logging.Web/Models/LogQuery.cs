@@ -46,4 +46,27 @@ namespace Takenet.Library.Logging.Web.Models
         LastWeek,
         Custom
     }
+
+
+    public static class ModelExtensions
+    {
+        public static string GetCssClass(this TraceEventType severity)
+        {
+            switch (severity)
+            {
+                case TraceEventType.Critical:
+                    return "alert-error";
+                case TraceEventType.Error:
+                    return "alert-error";
+                case TraceEventType.Information:
+                    return "alert-info"; 
+                case TraceEventType.Verbose:
+                    return "alert-success"; 
+                case TraceEventType.Warning:
+                    return "alert-block"; 
+                default:
+                    return null;
+            }
+        }
+    }
 }

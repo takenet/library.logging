@@ -27,7 +27,28 @@
             <tbody>
                 @foreach (var logMessage in Model)
                 {
-                <tr class="gradeX log-@logMessage.Severity.ToString().ToLower()">
+                    string cssClass = null;
+
+                    switch (logMessage.Severity)
+                    {
+                        case System.Diagnostics.TraceEventType.Critical:
+                            cssClass = "alert alert-error";
+                            break;
+                        case System.Diagnostics.TraceEventType.Error:
+                            cssClass = "alert alert-error";
+                            break;
+                        case System.Diagnostics.TraceEventType.Information:
+                            cssClass = "alert alert-info";
+                            break;
+                        case System.Diagnostics.TraceEventType.Verbose:
+                            cssClass = "alert alert-success";
+                            break;
+                        case System.Diagnostics.TraceEventType.Warning:
+                            cssClass = "alert alert-block";
+                            break;
+                    }                    
+                                        
+                <tr class="gradeX  @cssClass">
                     <td>
                         @logMessage.Timestamp
                     </td>
