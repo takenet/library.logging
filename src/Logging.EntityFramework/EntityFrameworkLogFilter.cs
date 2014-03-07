@@ -51,8 +51,8 @@ namespace Takenet.Library.Logging.EntityFramework
                         ApplicationName = logMessage.ApplicationName
                     };
 
-                    applicationConfigurationRepository.Add(application, true);
-                    context.Save();
+                    applicationConfigurationRepository.AddAsync(application, true).Wait();
+                    context.SaveAsync().Wait();
                 }
 
                 bool applicationHasChanged = false;
@@ -74,8 +74,8 @@ namespace Takenet.Library.Logging.EntityFramework
                             MessageTitle = logMessage.Title
                         });
 
-                        applicationConfigurationRepository.Add(application, false);
-                        context.Save();
+                        applicationConfigurationRepository.AddAsync(application, false).Wait();
+                        context.SaveAsync().Wait();
                     }
                 }
 

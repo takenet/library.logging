@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Takenet.Library.Logging.LogMessage>
+
+@{
+    ViewBag.Title = "Log Messages";
+}
+
+@Html.Partial("_Query", (Takenet.Library.Logging.Web.Models.LogQuery)ViewBag.LogQuery)
+
+<div class="widget-box">
+    <div class="widget-title">
+        <span class="icon">
+            <i class="icon-align-justify"></i>
+        </span>
+        <h5>Logs</h5>
+    </div>
+    <div class="widget-content">
+        <table class="table table-bordered data-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Application</th>
+                    <th>Severity</th>
+                    <th>Machine</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var logMessage in Model)
+                {
+                <tr class="gradeX log-@logMessage.Severity.ToString().ToLower()">
+                    <td>
+                        @logMessage.Timestamp
+                    </td>
+                    <td>
+                        @logMessage.ApplicationName
+                    </td>
+                    <td>
+                        @logMessage.Severity
+                    </td>
+                    <td>
+                        @logMessage.MachineName
+                    </td>
+                    <td>
+                        @logMessage.Message
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

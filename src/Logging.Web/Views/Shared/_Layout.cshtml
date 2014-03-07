@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Take.net Log Viewer</title>
+    <link rel="stylesheet" href="http://template.take.io/html/css/bootstrap.css" />
+    <link rel="stylesheet" href="http://template.take.io/html/css/bootstrap-responsive.min.css" />
+
+
+
+    <link rel="stylesheet" href="http://template.take.io/html/css/uniform.css" />
+    <link rel="stylesheet" href="http://template.take.io/html/css/select2.css" />
+
+    <link rel="stylesheet" href="http://template.take.io/html/css/colorpicker.css" />
+    
+
+    <link rel="stylesheet" href="http://template.take.io/html/css/datepicker.css" />
+    <link rel="stylesheet" href="http://template.take.io/html/css/unicorn.main.css" />
+    <link rel="stylesheet" href="http://template.take.io/html/css/unicorn.grey.css" class="skin-color" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="header">
+        <h1>
+            <a href=".">Take.net log viewer</a>
+        </h1>
+    </div>
+    <div id="sidebar">
+        <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <ul class="mainmenu" style="display: block;">
+            <li class="active">
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="icon icon-home"></i>
+                    <span>Log Messages</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Applications", "Home")">
+                    <i class="icon icon-th-list"></i> <span>Applications</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div id="content">
+        <div id="content-header">
+            <h1>@ViewBag.Title</h1>
+        </div>
+
+        <div id="breadcrumb">
+            <a href="#" class="tip-bottom" data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
+            <a href="#" class="current">Dashboard</a>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script src="http://template.take.io/html/js/jquery.min.js"></script>
+    <script src="http://template.take.io/html/js/jquery.ui.custom.js"></script>
+    <script src="http://template.take.io/html/js/jquery.validate.js"></script>
+    <script src="http://template.take.io/html/js/jquery.uniform.js"></script>
+    <script src="http://template.take.io/html/js/jquery.dataTables.min.js"></script>
+
+
+    <script src="http://template.take.io/html/js/bootstrap.min.js"></script>
+    <script src="http://template.take.io/html/js/bootstrap-datepicker.js"></script>
+
+    <script src="http://template.take.io/html/js/bootstrap-colorpicker.js"></script>
+
+    <script src="http://template.take.io/html/js/select2.min.js"></script>
+
+    <script src="http://template.take.io/html/js/unicorn.js"></script>
+    <script src="http://template.take.io/html/js/unicorn.tables.js"></script>
+    <script src="http://template.take.io/html/js/unicorn.form_common.js"></script>
+    @*<script src="http://template.take.io/html/js/unicorn.form_validation.js"></script>*@
+
+    <script>
+        var elements = {};
+
+        $("[data-val-required]").each(function (index, el) {
+            elements[($(el).attr('name'))] = { required: true }
+        });
+
+        $("form").validate({
+            rules: elements,
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('error')
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('error')
+                $(element).addClass('success');
+            }
+        });
+    </script>
+
+</body>
+</html>

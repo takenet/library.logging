@@ -1,0 +1,15 @@
+﻿.inline-left-margin {
+    margin-left: 10px;
+}
+
+.log-error {
+    background-color: #ffb9b9;
+}
+
+.log-warning {
+    background-color: #ffed8b;
+}
+
+.log-critical {
+    background-color: #ff6f6f;
+}

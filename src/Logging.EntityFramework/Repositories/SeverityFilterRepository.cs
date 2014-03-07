@@ -9,9 +9,9 @@ using Takenet.Library.Logging.Models;
 
 namespace Takenet.Library.Logging.EntityFramework.Repositories
 {
-    public class SeverityFilterRepository : EntityRepository<SeverityFilter, Guid>
+    public class SeverityFilterRepository : EntityRepositoryAsync<SeverityFilter, Guid>
     {
-        public SeverityFilterRepository(IUnitOfWork unitOfWork)
+        public SeverityFilterRepository(IUnitOfWorkAsync unitOfWork)
             : base(unitOfWork as DbContext)
         {
         }

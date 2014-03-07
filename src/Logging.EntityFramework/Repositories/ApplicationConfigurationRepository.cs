@@ -9,11 +9,11 @@ using Takenet.Library.Logging.Models;
 
 namespace Takenet.Library.Logging.EntityFramework.Repositories
 {
-    public class ApplicationConfigurationRepository : EntityRepository<ApplicationConfiguration, Guid>
+    public class ApplicationConfigurationRepository : EntityRepositoryAsync<ApplicationConfiguration, Guid>
     {
         #region Constructor
 
-        public ApplicationConfigurationRepository(IUnitOfWork unitOfWork)
+        public ApplicationConfigurationRepository(IUnitOfWorkAsync unitOfWork)
             : base(unitOfWork as DbContext)
         {
         }

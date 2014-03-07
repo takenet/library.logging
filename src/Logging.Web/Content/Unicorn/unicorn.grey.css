@@ -1,0 +1,109 @@
+/**
+ * Unicorn Admin Template
+ * Diablo9983 -> diablo9983@gmail.com
+**/
+body {
+	background-color: #444444;
+}
+
+#header {
+	background-color: #333333;
+}
+
+#search input[type=text], #search button {
+	background-color: #222222;
+}
+#search input[type=text]:focus {
+	color: #777777;
+}
+
+
+
+#sidebar > ul > li.active a span
+{
+	color: #000000;
+}
+
+
+#sidebar > ul > li.active.submenu.open > a > .label {
+	background-color: #efefef;
+
+}
+
+#sidebar > ul > li > a:hover,
+#sidebar > ul ul li a:hover {
+	background-color: #4A4A4A;
+}
+#sidebar > ul ul li{
+	text-indent: 30px;
+	list-style-type: none;
+}
+
+
+
+#sidebar > ul ul li.active a {
+	color: #000000;
+	background-color: #FDFDFD;
+}
+
+#sidebar > ul > li.submenu.active.open li a
+{
+	color: #000;
+}
+
+#sidebar > ul > li.submenu.active.open li.active a
+{
+	text-indent: 20px;
+}
+
+#sidebar > ul > li.active a:hover,
+#sidebar > ul > li.active,
+#sidebar > ul > li.submenu.active.open a,
+#sidebar > ul > li.submenu.active.open ul li.active a, 
+#sidebar > ul > li.active.open a:hover {
+    background-color: #FDFDFD;
+
+}
+
+#sidebar > ul > li.active,
+
+#sidebar > ul > li.submenu.active.open ul li.active a
+{
+border-left: 10px solid #DADADA;
+}
+
+#sidebar > ul > li.active a i
+{
+
+	background-image: url("../img/glyphicons-halflings.png");
+}
+
+.dropdown-menu li a:hover, .dropdown-menu .active a, .dropdown-menu .active a:hover {
+    color: #eeeeee;
+	background-color: #444444;
+    background-image: -webkit-gradient(linear, 0 0%, 0 100%, #555555, #222222);
+    background-image: -webkit-linear-gradient(top, #555555 0%, #222222 100%);
+    background-image: -moz-linear-gradient(top, #555555 0%, #222222 100%);
+    background-image: -ms-linear-gradient(top, #555555 0%, #222222 100%);
+    background-image: -o-linear-gradient(top, #555555 0%, #222222 100%);
+    background-image: linear-gradient(top, #555555 0%, #222222 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#555555', endColorstr='#222222',GradientType=0 ); /* IE6-9 */
+}
+
+@media (max-width: 480px) {
+	#sidebar > a {
+		background-image: -moz-linear-gradient(top, #464646 0%, #404040 100%);
+		border-bottom: 1px solid #6e6e6e;
+	}
+	#sidebar > ul {
+		background-color: #444444;
+	}
+}
+@media (min-width: 481px) and (max-width: 767px) {
+	#sidebar > ul ul:before {
+		border-right: 7px solid rgba(0, 0, 0, 0.2);
+	}
+	#sidebar > ul ul:after {
+		border-right: 6px solid #222222;
+    }
+}

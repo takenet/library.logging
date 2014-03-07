@@ -1,0 +1,44 @@
+﻿@model Takenet.Library.Logging.Web.Models.LogQuery
+
+<div class="widget-box">
+    <div class="widget-title">
+        <span class="icon">
+            <i class="icon-th"></i>
+        </span>
+        <h5>Filters</h5>
+    </div>
+    <div class="widget-content nopadding">
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline", novalidate = "novalidate" }))
+        {
+            <fieldset>
+
+                @Html.ValidationSummary(true)
+
+
+                @Html.LabelFor(m => m.Applications)
+                @Html.ListBoxFor(m => m.Applications, (IEnumerable<SelectListItem>)ViewBag.Applications, new { style = "width: 200px;" })
+                @Html.ValidationMessageFor(m => m.Applications, null, new { @class = "help-inline" })
+
+
+                @Html.LabelFor(m => m.Interval, new { @class = "inline-left-margin" })
+                @Html.DropDownListFor(m => m.Interval, new SelectList(Enum.GetNames(typeof(Takenet.Library.Logging.Web.Models.LogQueryInterval)), Model.Interval))
+
+
+                @Html.LabelFor(m => m.Severity, new { @class = "inline-left-margin" })
+                @Html.DropDownListFor(m => m.Severity, new SelectList(Enum.GetNames(typeof(System.Diagnostics.TraceEventType)), Model.Severity))
+
+
+                @Html.LabelFor(m => m.Message, new { @class = "inline-left-margin" })
+                @Html.TextBoxFor(m => m.Message)
+                @Html.ValidationMessageFor(m => m.Message, null, new { @class = "help-inline" })
+
+
+                <button type="submit" class="btn btn-primary inline-left-margin">
+                    <i class="icon-filter icon-white"></i>
+                    Filter
+                </button>
+            </fieldset>
+        }
+    </div>
+</div>

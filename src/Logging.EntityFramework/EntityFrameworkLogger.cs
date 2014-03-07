@@ -8,7 +8,7 @@ using Takenet.Library.Logging.EntityFramework.Repositories;
 
 namespace Takenet.Library.Logging.EntityFramework
 {
-    public class EntityFrameworkLogger : ILogger
+    public class EntityFrameworkLogger : ILogger, ILoggerAsync
     {
         private string _nameOrConnectionString;
 
@@ -39,20 +39,30 @@ namespace Takenet.Library.Logging.EntityFramework
 
         public void WriteLog(LogMessage logMessage)
         {
-            if (this.ShouldWriteLog(logMessage))
+            if (((ILogger)this).ShouldWriteLog(logMessage))
             {
                 using (var unitOfWork = CreateContext())
                 {
                     var logMessageRepository = new LogMessageRepository(unitOfWork);
-                    logMessageRepository.Add(logMessage, true);
-                    unitOfWork.Save();
+                    logMessageRepository.AddAsync(logMessage, true).Wait();
+                    unitOfWork.SaveAsync().Wait();
                 }
             }
         }
 
         #endregion
 
-        private IUnitOfWork CreateContext()
+        #region ILoggerAsync Members
+
+
+        public System.Threading.Tasks.Task WriteLogAsync(LogMessage logMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        private IUnitOfWorkAsync CreateContext()
         {
             LoggingContext context;
 
@@ -73,5 +83,7 @@ namespace Takenet.Library.Logging.EntityFramework
 
             return context;
         }
+
+
     }
 }

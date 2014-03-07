@@ -65,8 +65,8 @@ namespace Takenet.Library.Logging.LogConsumer.Factories
                 {
                     applicationConfiguration = new Models.ApplicationConfiguration();
                     applicationConfiguration.ApplicationName = applicationName;
-                    applicationConfigurationRepository.Add(applicationConfiguration, true);
-                    context.Save();
+                    applicationConfigurationRepository.AddAsync(applicationConfiguration, true).Wait();
+                    context.SaveAsync().Wait();
                 }
             }
 
@@ -82,7 +82,7 @@ namespace Takenet.Library.Logging.LogConsumer.Factories
 
         #region Private methods
 
-        private IUnitOfWork GetContext(string nameOrConnectionString)
+        private IUnitOfWorkAsync GetContext(string nameOrConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(nameOrConnectionString))
             {

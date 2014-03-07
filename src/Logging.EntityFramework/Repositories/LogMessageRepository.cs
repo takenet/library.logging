@@ -10,14 +10,14 @@ using Takenet.Library.Logging.EntityFramework.Configurations;
 
 namespace Takenet.Library.Logging.EntityFramework.Repositories
 {
-    public class LogMessageRepository : EntityRepository<LogMessage, long>
+    public class LogMessageRepository : EntityRepositoryAsync<LogMessage, long>
     {
-        public LogMessageRepository(IUnitOfWork unitOfWork)
+        public LogMessageRepository(IUnitOfWorkAsync unitOfWork)
             : base(unitOfWork as DbContext)
         {
         }
 
-        public override void Add(LogMessage entity, bool isNew)
+        public override System.Threading.Tasks.Task<LogMessage> AddAsync(LogMessage entity, bool isNew)
         {
             entity.ApplicationName = entity.ApplicationName.LeftTruncate(LogMessageConfiguration.APPLICATIONNAME_LENGTH);
             entity.MachineName = entity.MachineName.LeftTruncate(LogMessageConfiguration.MACHINENAME_LENGTH);
@@ -28,7 +28,7 @@ namespace Takenet.Library.Logging.EntityFramework.Repositories
             entity.ExtendedPropertiesFlat = entity.ExtendedPropertiesFlat.LeftTruncate(LogMessageConfiguration.EXTENDEDPROPERTIES_LENGTH);
             entity.CategoriesFlat = entity.CategoriesFlat.LeftTruncate(LogMessageConfiguration.CATEGORIES_LENGTH);
 
-            base.Add(entity, isNew);
+            return base.AddAsync(entity, isNew);
         }
     }
 

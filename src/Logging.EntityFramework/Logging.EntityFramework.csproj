@@ -68,6 +68,7 @@
     <Compile Include="Configurations\SeverityFilterConfiguration.cs" />
     <Compile Include="EntityFrameworkLogFilter.cs" />
     <Compile Include="EntityFrameworkLogger.cs" />
+    <Compile Include="ILoggingContext.cs" />
     <Compile Include="LoggingContext.cs" />
     <Compile Include="Configurations\ApplicationConfigurationConfiguration.cs" />
     <Compile Include="Migrations\201305162020142_Create_Schema.cs" />
