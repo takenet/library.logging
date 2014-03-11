@@ -1,10 +1,60 @@
-﻿@model IEnumerable<Takenet.Library.Logging.LogMessage>
+﻿@model Takenet.Library.Logging.Web.Models.LogQuery
 
 @{
     ViewBag.Title = "Log Messages";
 }
 
-@Html.Partial("_Query", (Takenet.Library.Logging.Web.Models.LogQuery)ViewBag.LogQuery)
+<div class="widget-box collapsible">
+    <div class="widget-title">
+        <a href="#filterValues" data-toggle="collapse">
+            <span class="icon">
+                <i class="icon-th"></i>
+            </span>
+            <h5>Filters</h5>
+        </a>
+    </div>
+    <div class="in collapse" id="filterValues">
+        <div class="widget-content nopadding">
+            @using (Html.BeginForm("GetLogs", "Home", FormMethod.Post, new { @class = "form-inline", novalidate = "novalidate", id = "logQueryForm" }))
+            {
+                <fieldset>
+                    @Html.ValidationSummary(true)
+
+                    @Html.LabelFor(m => m.Applications)
+                    @Html.ListBoxFor(m => m.Applications, (IEnumerable<SelectListItem>)ViewBag.Applications, new { @class = "input-large", placeholder = "applications" })                    
+
+                    @Html.LabelFor(m => m.Interval, new { @class = "inline-left-margin" })
+                    @Html.DropDownListFor(m => m.Interval, new SelectList(Enum.GetNames(typeof(Takenet.Library.Logging.Web.Models.LogQueryInterval)), Model.Interval)) 
+
+                    @Html.LabelFor(m => m.Severity, new { @class = "inline-left-margin" })
+                    @Html.DropDownListFor(m => m.Severity, new SelectList(Enum.GetNames(typeof(System.Diagnostics.TraceEventType)), Model.Severity))
+
+                    @Html.LabelFor(m => m.Message, new { @class = "inline-left-margin" })
+                    @Html.TextBoxFor(m => m.Message, new { @class = "input-large", placeholder = "Message" })
+
+                    @Html.LabelFor(m => m.MachineName, new { @class = "inline-left-margin" })
+                    @Html.TextBoxFor(m => m.MachineName, new { @class = "input-large" })
+
+                    @Html.LabelFor(m => m.CorrelationId, new { @class = "inline-left-margin" })
+                    @Html.TextBoxFor(m => m.CorrelationId, new { @class = "input-small" })
+
+                    @Html.LabelFor(m => m.Category, new { @class = "inline-left-margin" })
+                    @Html.TextBoxFor(m => m.Category, new { @class = "input-small" })
+
+                    @Html.LabelFor(m => m.Take, new { @class = "inline-left-margin" })
+                    @Html.DropDownListFor(m => m.Take, new SelectList(new[] { 10, 20, 50, 100 }, Model.Take))
+
+                    @Html.HiddenFor(m => m.Skip)
+
+                    <button type="submit" id="processButton" class="btn btn-primary inline-left-margin">
+                        <i class="icon-filter icon-white"></i>
+                        Filter
+                    </button>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
 
 <div class="widget-box">
     <div class="widget-title">
@@ -13,60 +63,162 @@
         </span>
         <h5>Logs</h5>
     </div>
-    <div class="widget-content">
-        <table class="table table-bordered data-table">
+    <div class="widget-content">       
+        <table id="logTable" class="table table-bordered">
             <thead>
                 <tr>
                     <th>Timestamp</th>
+                    <th>Title</th>
                     <th>Application</th>
                     <th>Severity</th>
                     <th>Machine</th>
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var logMessage in Model)
-                {
-                    string cssClass = null;
-
-                    switch (logMessage.Severity)
-                    {
-                        case System.Diagnostics.TraceEventType.Critical:
-                            cssClass = "alert alert-error";
-                            break;
-                        case System.Diagnostics.TraceEventType.Error:
-                            cssClass = "alert alert-error";
-                            break;
-                        case System.Diagnostics.TraceEventType.Information:
-                            cssClass = "alert alert-info";
-                            break;
-                        case System.Diagnostics.TraceEventType.Verbose:
-                            cssClass = "alert alert-success";
-                            break;
-                        case System.Diagnostics.TraceEventType.Warning:
-                            cssClass = "alert alert-block";
-                            break;
-                    }                    
-                                        
-                <tr class="gradeX  @cssClass">
-                    <td>
-                        @logMessage.Timestamp
-                    </td>
-                    <td>
-                        @logMessage.ApplicationName
-                    </td>
-                    <td>
-                        @logMessage.Severity
-                    </td>
-                    <td>
-                        @logMessage.MachineName
-                    </td>
-                    <td>
-                        @logMessage.Message
-                    </td>
-                </tr>
-                }
+            <tbody id="logTableBody">
             </tbody>
         </table>
     </div>
 </div>
+
+
+@section Scripts {
+
+<script src="http://template.take.io/html/js/jquery.min.js"></script>
+<script src="http://template.take.io/html/js/jquery.ui.custom.js"></script> 
+<script src="http://template.take.io/html/js/jquery.validate.js"></script>
+<script src="http://template.take.io/html/js/jquery.uniform.js"></script>
+<script src="http://template.take.io/html/js/jquery.dataTables.min.js"></script>
+<script src="http://template.take.io/html/js/bootstrap.min.js"></script>
+<script src="http://template.take.io/html/js/bootstrap-datepicker.js"></script>
+<script src="http://template.take.io/html/js/bootstrap-colorpicker.js"></script>
+<script src="http://template.take.io/html/js/select2.min.js"></script>
+<script src="http://template.take.io/html/js/unicorn.js"></script>
+<script src="http://template.take.io/html/js/unicorn.tables.js"></script>
+<script src="http://template.take.io/html/js/unicorn.form_common.js"></script>
+<script src="~/Scripts/site.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Handle the form submit event, and make the Ajax request:
+        $("#logQueryForm").on("submit", function (event) {
+            event.preventDefault();
+
+            var url = $(this).attr("action");          
+            var formData = $(this).serialize();
+
+            // Disable submit button
+            $("#processButton").attr("disabled", "disabled");
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                success: function (result) {
+                    // Fill the table with the returned data
+                    $("#logTableBody").empty();
+                    $.each(result, function (i, item) {
+                        var rowClass = "";
+                        switch (item.Severity) {
+                            case "Critical":
+                                rowClass = "alert alert-error";
+                                break;
+                            case "Error":
+                                rowClass = "alert alert-error";
+                                break;
+                            case "Information":
+                                rowClass = "alert alert-info";
+                                break;
+                            case "Verbose":
+                                rowClass = "alert alert-success";
+                                break;
+                            case "Warning":
+                                cssClass = "alert alert-block";
+                        }
+
+                        $("#logTableBody")
+                            .append($("<tr>")
+                                .attr("id", item.LogMessageId)
+                                .addClass("log-row")
+                                .addClass("alert")
+                                .addClass(rowClass)
+                                .append($("<td>")
+                                    .text(item.Timestamp)
+                                )
+                                .append($("<td>")
+                                    .text(item.Title)
+                                )
+                                .append($("<td>")
+                                    .text(item.ApplicationName)
+                                )
+                                .append($("<td>")
+                                    .text(item.Severity)
+                                )
+                                .append($("<td>")
+                                    .text(item.MachineName)
+                                )
+                                .append($("<td>")
+                                    .text(item.Message)
+                                )
+                            )
+                        .append($("<tr>")
+                            .addClass("log-details-row")
+                            .attr("id", item.LogMessageId + "Details")
+                            .append($("<td>")
+                                .attr("colspan", 6)
+                                .append($("<ul>")
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("LogMessageId: ")
+                                        )                            
+                                        .append(item.LogMessageId)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("CorrelationId: ")
+                                        )
+                                        .append(item.CorrelationId)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("UserName: ")
+                                        )
+                                        .append(item.UserName)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("Categories: ")
+                                        )
+                                        .append(item.Categories)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("ExtendedProperties: ")
+                                        )
+                                        .append(item.ExtendedProperties)
+                                    )
+                                )
+                            )
+                        )
+                    });
+
+                    $(".log-row").click(function () {
+                        var id = $(this).attr("id");
+                        $("#" + id + "Details").toggle();
+                    });
+                                                  
+                    // Enable the submit button
+                    $("#processButton").removeAttr("disabled");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Could not obtain data: ' + errorThrown);
+
+                    // Enable the submit button
+                    $("#processButton").removeAttr("disabled");
+                }
+            })
+        });
+    });
+</script>
+}

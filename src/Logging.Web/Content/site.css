@@ -2,22 +2,24 @@
     margin-left: 10px;
 }
 
-.log-error {
-    background-color: #ffb9b9;
+
+.log-row:hover {
+    border-style: solid;
+    border-color: black;
 }
 
-.log-warning {
-    background-color: #ffed8b;
+
+.log-details-row {
+    display: none;
 }
 
-.log-critical {
-    background-color: #ff6f6f;
+.severity-critical {
+    font-weight: bold;
 }
 
 .sidetoogle {
     margin-left: 15px;
 }
-
 
 #content.mini {
     margin-left: 50px;
@@ -27,17 +29,16 @@
     width: 50px;
 }
 
-
     #sidebar.mini > ul > li > a > span {
         display: none;
     }
 
-    #header {
-        height: 50px;
-    }
-
-#header h1 {
-    top: 5px;
-    left: 10px;
+#header {
     height: 50px;
 }
+
+    #header h1 {
+        top: 5px;
+        left: 10px;
+        height: 50px;
+    }

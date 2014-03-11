@@ -31,11 +31,18 @@ namespace Takenet.Library.Logging.Web.Models
         
         public string Message { get; set; }
 
+        [Display(Name = "Machine")]
+        public string MachineName { get; set; }
+
+        public long? CorrelationId { get; set; }
+
+        public string Category { get; set; }
+
         public int Skip { get; set; }
 
+        [Display(Name = "Page size")]
         public int Take { get; set; }
     }
-
 
     public enum LogQueryInterval
     {
@@ -45,28 +52,5 @@ namespace Takenet.Library.Logging.Web.Models
         LastTwoDays,
         LastWeek,
         Custom
-    }
-
-
-    public static class ModelExtensions
-    {
-        public static string GetCssClass(this TraceEventType severity)
-        {
-            switch (severity)
-            {
-                case TraceEventType.Critical:
-                    return "alert-error";
-                case TraceEventType.Error:
-                    return "alert-error";
-                case TraceEventType.Information:
-                    return "alert-info"; 
-                case TraceEventType.Verbose:
-                    return "alert-success"; 
-                case TraceEventType.Warning:
-                    return "alert-block"; 
-                default:
-                    return null;
-            }
-        }
     }
 }

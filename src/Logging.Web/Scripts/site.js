@@ -34,22 +34,3 @@ var changeSideBar = function () {
         }
     }
 }
-
-var elements = {};
-
-$("[data-val-required]").each(function (index, el) {
-    elements[($(el).attr('name'))] = { required: true }
-});
-
-$("form").validate({
-    rules: elements,
-    errorClass: "help-inline",
-    errorElement: "span",
-    highlight: function (element, errorClass, validClass) {
-        $(element).addClass('error')
-    },
-    unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('error')
-        $(element).addClass('success');
-    }
-});
