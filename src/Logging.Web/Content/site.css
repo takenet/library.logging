@@ -2,12 +2,10 @@
     margin-left: 10px;
 }
 
-
 .log-row:hover {
     border-style: solid;
     border-color: black;
 }
-
 
 .log-details-row {
     display: none;

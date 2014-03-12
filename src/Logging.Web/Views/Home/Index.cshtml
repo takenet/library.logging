@@ -32,6 +32,9 @@
                     @Html.LabelFor(m => m.Message, new { @class = "inline-left-margin" })
                     @Html.TextBoxFor(m => m.Message, new { @class = "input-large", placeholder = "Message" })
 
+                    @Html.LabelFor(m => m.UserName, new { @class = "inline-left-margin" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input-small" })
+
                     @Html.LabelFor(m => m.MachineName, new { @class = "inline-left-margin" })
                     @Html.TextBoxFor(m => m.MachineName, new { @class = "input-large" })
 
@@ -70,6 +73,7 @@
                     <th>Timestamp</th>
                     <th>Title</th>
                     <th>Application</th>
+                    <th>User</th>
                     <th>Severity</th>
                     <th>Machine</th>
                     <th>Message</th>
@@ -81,9 +85,7 @@
     </div>
 </div>
 
-
 @section Scripts {
-
 <script src="http://template.take.io/html/js/jquery.min.js"></script>
 <script src="http://template.take.io/html/js/jquery.ui.custom.js"></script> 
 <script src="http://template.take.io/html/js/jquery.validate.js"></script>
@@ -153,6 +155,9 @@
                                     .text(item.ApplicationName)
                                 )
                                 .append($("<td>")
+                                    .text(item.UserName)
+                                )
+                                .append($("<td>")
                                     .text(item.Severity)
                                 )
                                 .append($("<td>")
@@ -182,9 +187,21 @@
                                     )
                                     .append($("<li>")
                                         .append($("<strong>")
-                                            .append("UserName: ")
+                                            .append("ProcessId: ")
                                         )
-                                        .append(item.UserName)
+                                        .append(item.ProcessId)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("ProcessName: ")
+                                        )
+                                        .append(item.ProcessName)
+                                    )
+                                    .append($("<li>")
+                                        .append($("<strong>")
+                                            .append("ThreadId: ")
+                                        )
+                                        .append(item.ThreadId)
                                     )
                                     .append($("<li>")
                                         .append($("<strong>")

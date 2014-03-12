@@ -85,6 +85,12 @@ namespace Takenet.Library.Logging.Web.Controllers
                 logMessages = logMessages
                     .Where(l => l.Message.Contains(logQuery.Message));
             }
+            
+            if (!string.IsNullOrWhiteSpace(logQuery.UserName))
+            {
+                logMessages = logMessages
+                    .Where(l => l.UserName == logQuery.UserName);
+            }
 
             if (!string.IsNullOrWhiteSpace(logQuery.MachineName))
             {
@@ -117,6 +123,9 @@ namespace Takenet.Library.Logging.Web.Controllers
                     l.ApplicationName,
                     Severity = l.Severity.ToString(),
                     l.MachineName,
+                    l.ProcessName,
+                    l.ProcessId,
+                    l.ThreadId,
                     l.Message,
                     l.UserName,
                     l.CorrelationId,
@@ -126,7 +135,6 @@ namespace Takenet.Library.Logging.Web.Controllers
 
             return Json(result);
         }
-
 
         [HttpPost]
         public ActionResult Index(LogQuery logQuery)

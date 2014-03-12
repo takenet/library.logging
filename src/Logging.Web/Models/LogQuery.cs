@@ -31,6 +31,9 @@ namespace Takenet.Library.Logging.Web.Models
         
         public string Message { get; set; }
 
+        [Display(Name = "User")]
+        public string UserName { get; set; }
+
         [Display(Name = "Machine")]
         public string MachineName { get; set; }
 
