@@ -15,7 +15,17 @@ namespace Takenet.Library.Logging
     [DataContract]
     public class LogMessage
     {
+        private static int _processId;
+        private static string _processName;
+
         #region Constructor
+
+        static LogMessage()
+        {
+            var currentProcess = Process.GetCurrentProcess();
+            _processId = currentProcess.Id;
+            _processName = currentProcess.ProcessName;
+        }
 
         /// <summary>
         /// Create a instance with default values
@@ -56,11 +66,9 @@ namespace Takenet.Library.Logging
                 throw new ArgumentNullException("applicationName");
             }
 
-            var currentProcess = Process.GetCurrentProcess();
-
-            ProcessName = currentProcess.ProcessName;
+            ProcessName = _processName;
             MachineName = Environment.MachineName;
-            ProcessId = currentProcess.Id;
+            ProcessId = _processId;
             ThreadId = Thread.CurrentThread.ManagedThreadId;
             Categories = categories;
             CorrelationId = correlationID;
