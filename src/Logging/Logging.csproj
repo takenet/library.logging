@@ -19,6 +19,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <BuildPackage>true</BuildPackage>
     <TargetFrameworkProfile />
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -134,6 +135,7 @@
     <Compile Include="Loggers\EventViewerLogger.cs" />
     <Compile Include="Loggers\LoggerAsync.cs" />
     <Compile Include="Loggers\TextFileLogger.cs" />
+    <Compile Include="Loggers\TraceLogger.cs" />
     <Compile Include="LogMessage.cs" />
     <Compile Include="Loggers\QueueLogger.cs" />
     <Compile Include="Models\ApplicationConfiguration.cs" />
