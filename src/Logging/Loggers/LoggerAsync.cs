@@ -27,7 +27,7 @@ namespace Takenet.Library.Logging.Loggers
 
             _logger = logger;
 
-            this.Filter = filter;
+            Filter = filter;
 
         }
 
@@ -45,13 +45,12 @@ namespace Takenet.Library.Logging.Loggers
 
         public Task WriteLogAsync(LogMessage logMessage)
         {
-            return Task.Factory.StartNew(() =>
+            if (this.ShouldWriteLog(logMessage))
             {
-                if (this.ShouldWriteLog(logMessage))
-                {
-                    _logger.WriteLog(logMessage);
-                }
-            });
+                _logger.WriteLog(logMessage);
+            }
+
+            return Task.FromResult(0);
         }
 
         #endregion
