@@ -39,14 +39,21 @@ namespace Takenet.Library.Logging.EntityFramework
 
         public void WriteLog(LogMessage logMessage)
         {
-            if (((ILogger)this).ShouldWriteLog(logMessage))
+            try
             {
-                using (var unitOfWork = CreateContext())
+                if (((ILogger)this).ShouldWriteLog(logMessage))
                 {
-                    var logMessageRepository = new LogMessageRepository(unitOfWork);
-                    logMessageRepository.AddAsync(logMessage, true).Wait();
-                    unitOfWork.SaveAsync().Wait();
+                    using (var unitOfWork = CreateContext())
+                    {
+                        var logMessageRepository = new LogMessageRepository(unitOfWork);
+                        logMessageRepository.AddAsync(logMessage, true).Wait();
+                        unitOfWork.SaveAsync().Wait();
+                    }
                 }
+            }
+            catch (TimeoutException e)
+            {
+                throw e;
             }
         }
 
