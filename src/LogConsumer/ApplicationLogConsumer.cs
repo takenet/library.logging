@@ -57,10 +57,38 @@ namespace Takenet.Library.Logging.LogConsumer
         {
             while (!_disposed)
             {
+                LogMessage logMessage = null;
                 try
                 {
-                    var logMessage = QueueLogger.DequeueLog(_applicationName, _queuePath);
+                    logMessage = QueueLogger.DequeueLog(_applicationName, _queuePath);
                     _logger.WriteLog(logMessage);
+                }
+                catch (TimeoutException ex)
+                {
+                    if (logMessage != null)
+                    {
+                        QueueLogger.EnqueueLog(logMessage, _queuePath);
+                    }
+                    else
+                    {
+                        _alnternateLogger.WriteCritical (
+                        "ConsumeLogs",
+                        string.Format("Cannot possible retry enqueue the log message on timeout exception: {0}", ex.ToString()),
+                        null,
+                        "LogConsumer",
+                        "TimeOutException - Error on Retry"
+                        );
+
+                        throw;
+                    }
+
+                    _alnternateLogger.WriteError (
+                        "ConsumeLogs",
+                        string.Format("Exception: {0}, Treatment for Retry: {1}", ex.ToString(), "Enqueued to application queue again."),
+                        null,
+                        "LogConsumer",
+                        "Timeout Exception"
+                        );
                 }
                 catch (Exception ex)
                 {
