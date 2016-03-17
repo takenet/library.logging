@@ -75,6 +75,8 @@ namespace Takenet.Library.Logging.EntityFramework
                 context = new LoggingContext(_nameOrConnectionString);
             }
 
+            context.Database.CommandTimeout = 60;
+
             // Disable EF options to improve performance
             context.Configuration.AutoDetectChangesEnabled = false;
             context.Configuration.LazyLoadingEnabled = false;
