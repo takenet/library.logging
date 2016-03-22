@@ -157,7 +157,6 @@
   <ItemGroup>
     <Compile Include="ApplicationLogConsumer.cs" />
     <Compile Include="Configuration\LogConsumerConfiguration.cs" />
-    <Compile Include="ILoggerFactory.cs" />
     <Compile Include="Factories\AggregateLogListener.cs" />
     <Compile Include="Factories\EntityFrameworkLogFactory.cs" />
     <Compile Include="Factories\FakeLogFactory.cs" />
