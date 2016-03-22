@@ -162,6 +162,7 @@
     <Compile Include="Factories\FakeLogFactory.cs" />
     <Compile Include="Factories\HttpLogFactory.cs" />
     <Compile Include="Factories\MongoDBLogFactory.cs" />
+    <Compile Include="ILoggerFactory.cs" />
     <Compile Include="LogConsumerService.cs">
       <SubType>Component</SubType>
     </Compile>

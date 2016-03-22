@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Takenet.Library.Logging
+namespace Takenet.Library.Logging.LogConsumer
 {
     /// <summary>
     /// Common interface for log listeners
