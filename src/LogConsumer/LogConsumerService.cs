@@ -48,7 +48,7 @@ namespace Takenet.Library.Logging.LogConsumer
             var loggerFactoryTypes = Assembly
                 .GetExecutingAssembly()
                 .GetTypes()
-                .Where(t => typeof(ILoggerFactory).IsAssignableFrom(t));
+                .Where(t => typeof(ILoggerFactory).IsAssignableFrom(t) && t.IsClass == true);
 
             foreach (var type in loggerFactoryTypes)
             {
