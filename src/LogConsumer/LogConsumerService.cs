@@ -54,9 +54,9 @@ namespace Takenet.Library.Logging.LogConsumer
             {
                 var factory = (ILoggerFactory)Activator.CreateInstance(type);
 
-                if (!_loggerFactoryDictionary.ContainsKey(type))
+                if (!_loggerFactoryDictionary.ContainsKey(factory.LoggerType))
                 {
-                    _loggerFactoryDictionary.Add(type, factory);
+                    _loggerFactoryDictionary.Add(factory.LoggerType, factory);
                 }
                 else
                 {
